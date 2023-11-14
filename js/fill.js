@@ -1,4 +1,5 @@
 import { hexToRGBA } from "./utils.js";
+import Queue from "./queue.js";
 
 export default class Fill {
   constructor(canvas, color) {
@@ -29,40 +30,38 @@ export default class Fill {
   }
 
   fill(screen, x, y, w, h, source, color) {
-    let queue = [[x, y]];
-    let filled = new Set(); // Set to keep track of filled pixels
+    let queue = new Queue();
+    queue.enqueue([x, y]);
+    let filled = new Array(screen.length >> 2).fill(false);
 
     console.log(window.performance.now());
-    while (queue.length > 0) {
-      const [currX, currY] = queue.shift();
-      const pos = (currY * w + currX) * 4;
+    while (!queue.isEmpty()) {
+      const [currX, currY] = queue.dequeue();
+      const pos = currY * this.c.w + currX;
 
       // Skip if the pixel is already filled or not valid
-      if (
-        filled.has(pos) ||
-        !this.isValid(screen, currX, currY, w, h, source)
-      ) {
+      if (filled[pos] || !this.isValid(screen, currX, currY, w, h, source)) {
         continue;
       }
 
       this.setPixel(screen, currX, currY, color);
-      filled.add(pos); // Mark the pixel as filled
+      filled[pos] = true; // Mark the pixel as filled
 
       // Check and queue the neighboring pixels
       if (this.isValid(screen, currX + 1, currY, w, h, source)) {
-        queue.push([currX + 1, currY]);
+        queue.enqueue([currX + 1, currY]);
       }
 
       if (this.isValid(screen, currX - 1, currY, w, h, source)) {
-        queue.push([currX - 1, currY]);
+        queue.enqueue([currX - 1, currY]);
       }
 
       if (this.isValid(screen, currX, currY + 1, w, h, source)) {
-        queue.push([currX, currY + 1]);
+        queue.enqueue([currX, currY + 1]);
       }
 
       if (this.isValid(screen, currX, currY - 1, w, h, source)) {
-        queue.push([currX, currY - 1]);
+        queue.enqueue([currX, currY - 1]);
       }
     }
     console.log(window.performance.now());
@@ -70,7 +69,8 @@ export default class Fill {
 
   mousedown(e) {
     const screen = this.c.ctx.getImageData(0, 0, this.c.w, this.c.h).data;
-    const source = this.c.ctx.getImageData(e.offsetX, e.offsetY, 1, 1).data;
+    const pos = (e.offsetY * this.c.w + e.offsetX) * 4;
+    const source = screen.slice(pos, pos + 4);
     this.fill(
       screen,
       e.offsetX,
