@@ -1,13 +1,12 @@
-export default class Tool {
+export default class Brush {
   // tool settings
-  stroke = 5;
-  color = "#000000";
   active = false;
 
-  constructor(canvas) {
+  constructor(canvas, color, stroke) {
     this.c = canvas;
-    // brush function
-    this.brush = () => {};
+    this.color = color;
+    this.stroke = stroke;
+
     // Bind event handlers to ensure they have the correct context
     this.mousedown = this.mousedown.bind(this);
     this.mousemove = this.mousemove.bind(this);
@@ -19,7 +18,7 @@ export default class Tool {
     this.c.canvas.addEventListener("mouseup", this.mouseup);
   }
 
-  defaultBrush(x, y, dx, dy) {
+  brush(x, y, dx, dy) {
     this.c.ctx.fillStyle = this.color;
     this.c.ctx.strokeStyle = this.color;
 
@@ -54,11 +53,13 @@ export default class Tool {
     this.color = color;
   }
 
-  setBrush() {
-    this.brush = this.defaultBrush.bind(this);
-  }
-
   setStroke(stroke) {
     this.stroke = Math.min(Math.max(0, stroke), 100);
+  }
+
+  cleanup() {
+    this.c.canvas.removeEventListener("mousedown", this.mousedown);
+    this.c.canvas.removeEventListener("mousemove", this.mousemove);
+    this.c.canvas.removeEventListener("mouseup", this.mouseup);
   }
 }

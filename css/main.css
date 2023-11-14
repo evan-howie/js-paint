@@ -27,7 +27,17 @@ body {
 }
 
 .brush input {
-  display: block;
+  width: 3rem;
+}
+
+.fill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.fill input {
   width: 3rem;
 }
 

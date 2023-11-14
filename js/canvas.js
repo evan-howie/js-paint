@@ -9,15 +9,12 @@ export default class Canvas {
 
     // canvas settings
     this.canvas = document.getElementById(id);
-    this.resize();
-    window.addEventListener("resize", this.resize.bind(this));
 
     // graphics context
     this.ctx = this.canvas.getContext("2d", { willReadFrequently: true });
 
-    // dimensions
-    this.w = this.canvas.width;
-    this.h = this.canvas.height;
+    this.resize();
+    window.addEventListener("resize", this.resize.bind(this));
 
     this.pushState();
   }
@@ -27,6 +24,8 @@ export default class Canvas {
     this.canvas.height = this.canvas.parentElement.offsetHeight;
     this.w = this.canvas.width;
     this.h = this.canvas.height;
+    this.ctx.fillStyle = "#ffffff";
+    this.ctx.fillRect(0, 0, this.w, this.h);
   }
 
   pushState() {

@@ -1,22 +1,32 @@
 import Canvas from "./canvas.js";
-import Tool from "./tool.js";
 import KeyHandler from "./keyHandler.js";
+import Brush from "./brush.js";
+import Fill from "./fill.js";
 
 export default function init() {
   const c = new Canvas("js-paint-canvas");
 
-  const tool = new Tool(c);
+  let tool = new Brush(c);
   const keyHandler = new KeyHandler(c);
 
-  document.getElementById("color-picker").onchange = (e) => {
+  const colorPicker = document.getElementById("color-picker");
+  const brushStroke = document.getElementById("brush-stroke");
+
+  colorPicker.onchange = (e) => {
     tool.setFill(e.target.value);
   };
 
-  document.getElementById("brush").onclick = (e) => {
-    tool.setBrush();
+  brushStroke.onchange = (e) => {
+    tool.setStroke(e.target.value);
   };
 
-  document.getElementById("brush-stroke").onchange = (e) => {
-    tool.setStroke(e.target.value);
+  document.getElementById("brush").onclick = (e) => {
+    tool.cleanup();
+    tool = new Brush(c, colorPicker.value, brushStroke.value);
+  };
+
+  document.getElementById("fill").onclick = (e) => {
+    tool.cleanup();
+    tool = new Fill(c, colorPicker.value);
   };
 }
