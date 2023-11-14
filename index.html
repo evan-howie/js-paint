@@ -3,7 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
     <title>js-paint</title>
   </head>
-  <body></body>
+  <body>
+    <div class="tools">
+      <div class="color-picker">
+        <h1>Colors</h1>
+        <input type="color" id="color-picker" />
+      </div>
+      <div class="brush">
+        <button id="brush">Brush</button>
+        <input type="number" id="brush-stroke" value="5" max="100" min="1" />
+      </div>
+    </div>
+    <div id="js-paint-canvas-container">
+      <canvas id="js-paint-canvas"></canvas>
+    </div>
+    <script src="js/main.js" type="module"></script>
+  </body>
 </html>
