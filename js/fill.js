@@ -85,6 +85,7 @@ export default class Fill {
       0,
       0
     );
+    this.c.pushState();
   }
 
   setFill(color) {
