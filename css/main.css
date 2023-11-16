@@ -10,7 +10,7 @@ body {
   flex-direction: column;
 }
 
-.tools {
+#tools {
   background-color: #212121;
   color: white;
   padding: 2rem;

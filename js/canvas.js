@@ -51,4 +51,10 @@ export default class Canvas {
       this.curStackIndex < this.undoStack.length - 1 ? 1 : 0;
     this.ctx.putImageData(this.undoStack[this.curStackIndex], 0, 0);
   }
+
+  clear() {
+    this.ctx.fillStyle = "#ffffff";
+    this.ctx.fillRect(0, 0, this.w, this.h);
+    this.pushState();
+  }
 }
