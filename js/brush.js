@@ -1,6 +1,7 @@
 export default class Brush {
   // tool settings
   active = false;
+  cursorPath = "../assets/brush.png";
 
   constructor(canvas, color, stroke) {
     this.c = canvas;
@@ -16,6 +17,8 @@ export default class Brush {
     this.c.canvas.addEventListener("mousedown", this.mousedown);
     this.c.canvas.addEventListener("mousemove", this.mousemove);
     this.c.canvas.addEventListener("mouseup", this.mouseup);
+
+    this.c.canvas.style.cursor = `url(${this.cursorPath}) 16 16, auto`;
   }
 
   brush(x, y, dx, dy) {
