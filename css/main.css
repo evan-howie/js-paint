@@ -41,6 +41,10 @@ body {
   width: 3rem;
 }
 
+.dims {
+  display: flex;
+  flex-direction: column;
+}
 #js-paint-canvas-container {
   flex-grow: 1; /* Takes up remaining space */
   display: flex;

@@ -3,25 +3,33 @@ import KeyHandler from "./keyHandler.js";
 import Brush from "./brush.js";
 import Fill from "./fill.js";
 
-export default function init() {
-  const c = new Canvas("js-paint-canvas");
+const c = new Canvas("js-paint-canvas");
+let tool = new Brush(c);
+const keyHandler = new KeyHandler(c);
 
-  const colorPicker = document.getElementById("color-picker");
-  const brushStroke = document.getElementById("brush-stroke");
-  const uploadFile = document.getElementById("upload-image");
+const colorPicker = document.getElementById("color-picker");
+const brushStroke = document.getElementById("brush-stroke");
+const uploadImage = document.getElementById("upload-image");
+const clearCanvas = document.getElementById("clear-canvas");
+const brushButton = document.getElementById("brush");
+const fillButton = document.getElementById("fill");
 
-  let tool = new Brush(c, colorPicker.value, brushStroke.value);
-  const keyHandler = new KeyHandler(c);
-
+function initColorPicker() {
   colorPicker.onchange = (e) => {
     tool.setFill(e.target.value);
   };
+  return colorPicker.value;
+}
 
+function initBrushStroke() {
   brushStroke.onchange = (e) => {
     tool.setStroke(e.target.value);
   };
+  return brushStroke.value;
+}
 
-  uploadFile.onchange = (e) => {
+function initUploadImage() {
+  uploadImage.onchange = (e) => {
     const file = e.target.files[0];
     if (!file) {
       return;
@@ -36,20 +44,35 @@ export default function init() {
       img.src = e.target.result;
     };
     reader.readAsDataURL(file);
-    uploadFile.value = "";
+    uploadImage.value = "";
   };
+}
 
-  document.getElementById("clear-canvas").onclick = (e) => {
+function initClearCanvas() {
+  clearCanvas.onclick = (e) => {
     c.clear();
   };
+}
 
-  document.getElementById("brush").onclick = (e) => {
+function initToolButtons() {
+  brushButton.onclick = (e) => {
     tool.cleanup();
     tool = new Brush(c, colorPicker.value, brushStroke.value);
   };
 
-  document.getElementById("fill").onclick = (e) => {
+  fillButton.onclick = (e) => {
     tool.cleanup();
     tool = new Fill(c, colorPicker.value);
   };
+}
+
+export default function init() {
+  const initialColor = initColorPicker();
+  const initialBrushStroke = initBrushStroke();
+  initUploadImage();
+  initClearCanvas();
+  initToolButtons();
+
+  tool.setFill(initialColor);
+  tool.setStroke(initialBrushStroke);
 }

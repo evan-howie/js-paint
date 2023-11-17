@@ -8,6 +8,20 @@
   </head>
   <body>
     <div id="tools">
+      <div class="upload">
+        <h1>Upload</h1>
+        <input
+          type="file"
+          id="upload-image"
+          accept="image/*"
+          style="display: none"
+        />
+        <input
+          type="button"
+          value="Browse..."
+          onclick="document.getElementById('upload-image').click();"
+        />
+      </div>
       <div class="color-picker">
         <h1>Colors</h1>
         <input type="color" id="color-picker" />
@@ -20,12 +34,14 @@
         <button id="fill">Fill</button>
         <input type="number" id="fill-threshold" value="5" max="100" min="1" />
       </div>
-      <div class="upload">
-        <h1>Upload</h1>
-        <input type="file" id="upload-image" accept="image/*" />
-      </div>
       <div class="clear">
         <button id="clear-canvas">Clear Canvas</button>
+      </div>
+      <div class="dims">
+        <h1>Dimensions</h1>
+        <input type="number" id="width" placeholder="width (px)" />
+        <input type="number" id="height" placeholder="height (px)" />
+        <button>Apply</button>
       </div>
     </div>
     <div id="js-paint-canvas-container">
