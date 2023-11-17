@@ -14,7 +14,7 @@ export default class Canvas {
     this.ctx = this.canvas.getContext("2d", { willReadFrequently: true });
 
     this.resize();
-    window.addEventListener("resize", this.resize.bind(this));
+    // window.addEventListener("resize", this.resize.bind(this));
 
     this.pushState();
   }
@@ -26,6 +26,13 @@ export default class Canvas {
     this.h = this.canvas.height;
     this.ctx.fillStyle = "#ffffff";
     this.ctx.fillRect(0, 0, this.w, this.h);
+  }
+
+  setSize(width, height) {
+    this.canvas.width = width;
+    this.canvas.height = height;
+    this.w = width;
+    this.h = height;
   }
 
   pushState() {

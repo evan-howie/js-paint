@@ -13,6 +13,11 @@ const uploadImage = document.getElementById("upload-image");
 const clearCanvas = document.getElementById("clear-canvas");
 const brushButton = document.getElementById("brush");
 const fillButton = document.getElementById("fill");
+const widthInput = document.getElementById("width");
+const heightInput = document.getElementById("height");
+const dimensionSubmitButton = document.getElementById(
+  "dimensions-submit-button"
+);
 
 function initColorPicker() {
   colorPicker.onchange = (e) => {
@@ -66,12 +71,24 @@ function initToolButtons() {
   };
 }
 
+function initDimensions() {
+  dimensionSubmitButton.onclick = (e) => {
+    const newWidth = parseInt(widthInput.value);
+    const newHeight = parseInt(heightInput.value);
+
+    if (newWidth === NaN || newHeight === NaN) return;
+
+    c.setSize(newWidth, newHeight);
+  };
+}
+
 export default function init() {
   const initialColor = initColorPicker();
   const initialBrushStroke = initBrushStroke();
   initUploadImage();
   initClearCanvas();
   initToolButtons();
+  initDimensions();
 
   tool.setFill(initialColor);
   tool.setStroke(initialBrushStroke);
