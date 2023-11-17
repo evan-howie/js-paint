@@ -57,4 +57,9 @@ export default class Canvas {
     this.ctx.fillRect(0, 0, this.w, this.h);
     this.pushState();
   }
+
+  drawImage(img, x, y) {
+    this.ctx.drawImage(img, x, y);
+    this.pushState();
+  }
 }

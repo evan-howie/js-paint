@@ -31,7 +31,7 @@ export default function init() {
     reader.onload = function (e) {
       const img = new Image();
       img.onload = function () {
-        c.ctx.drawImage(img, 0, 0);
+        c.drawImage(img, 0, 0);
       };
       img.src = e.target.result;
     };
