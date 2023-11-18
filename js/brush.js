@@ -39,6 +39,7 @@ export default class Brush {
   }
 
   mousedown(e) {
+    if (e.button !== 0) return;
     this.active = true;
     this.brush(e.offsetX, e.offsetY, e.movementX, e.movementY);
   }
@@ -48,6 +49,7 @@ export default class Brush {
   }
 
   mouseup(e) {
+    if (e.button !== 0) return;
     this.active = false;
     this.c.pushState();
   }

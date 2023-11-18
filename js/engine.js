@@ -13,6 +13,7 @@ const uploadImage = document.getElementById("upload-image");
 const clearCanvas = document.getElementById("clear-canvas");
 const brushButton = document.getElementById("brush");
 const fillButton = document.getElementById("fill");
+const fillThreshold = document.getElementById("fill-threshold");
 const widthInput = document.getElementById("width");
 const heightInput = document.getElementById("height");
 const dimensionSubmitButton = document.getElementById(
@@ -29,6 +30,13 @@ function initColorPicker() {
 function initBrushStroke() {
   brushStroke.onchange = (e) => {
     tool.setStroke(e.target.value);
+  };
+  return brushStroke.value;
+}
+
+function initFillThreshold() {
+  fillThreshold.onchange = (e) => {
+    tool.setThreshold(e.target.value);
   };
   return brushStroke.value;
 }
@@ -67,16 +75,18 @@ function initToolButtons() {
 
   fillButton.onclick = (e) => {
     tool.cleanup();
-    tool = new Fill(c, colorPicker.value);
+    tool = new Fill(c, colorPicker.value, fillThreshold.value);
   };
 }
 
 function initDimensions() {
   dimensionSubmitButton.onclick = (e) => {
-    const newWidth = parseInt(widthInput.value);
-    const newHeight = parseInt(heightInput.value);
+    let newWidth = parseInt(widthInput.value);
+    let newHeight = parseInt(heightInput.value);
 
-    if (newWidth === NaN || newHeight === NaN) return;
+    if (isNaN(newWidth)) newWidth = c.w;
+
+    if (isNaN(newHeight)) newHeight = c.h;
 
     c.setSize(newWidth, newHeight);
   };
@@ -85,6 +95,7 @@ function initDimensions() {
 export default function init() {
   const initialColor = initColorPicker();
   const initialBrushStroke = initBrushStroke();
+  const initialFillThreshold = initFillThreshold();
   initUploadImage();
   initClearCanvas();
   initToolButtons();

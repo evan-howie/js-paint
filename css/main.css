@@ -4,8 +4,10 @@
 
 html,
 body {
+  /* to get rid of random scrollbar */
+  min-height: calc(100vh - 3px);
+
   margin: 0;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #212121;
@@ -45,6 +47,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 #js-paint-canvas-container {
   flex-grow: 1; /* Takes up remaining space */
   display: flex;

@@ -15,8 +15,6 @@ export default class Canvas {
 
     this.resize();
     // window.addEventListener("resize", this.resize.bind(this));
-
-    this.pushState();
   }
 
   resize() {
@@ -24,15 +22,16 @@ export default class Canvas {
     this.canvas.height = this.canvas.parentElement.offsetHeight;
     this.w = this.canvas.width;
     this.h = this.canvas.height;
-    this.ctx.fillStyle = "#ffffff";
-    this.ctx.fillRect(0, 0, this.w, this.h);
+    this.clear();
   }
 
   setSize(width, height) {
+    const image = this.ctx.getImageData(0, 0, this.w, this.h);
     this.canvas.width = width;
     this.canvas.height = height;
     this.w = width;
     this.h = height;
+    this.ctx.putImageData(image, 0, 0);
   }
 
   pushState() {
@@ -60,8 +59,7 @@ export default class Canvas {
   }
 
   clear() {
-    this.ctx.fillStyle = "#ffffff";
-    this.ctx.fillRect(0, 0, this.w, this.h);
+    this.ctx.clearRect(0, 0, this.w, this.h);
     this.pushState();
   }
 

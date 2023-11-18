@@ -2,9 +2,10 @@ import { hexToRGBA } from "./utils.js";
 import Queue from "./queue.js";
 
 export default class Fill {
-  constructor(canvas, color) {
+  constructor(canvas, color, threshold) {
     this.c = canvas;
     this.color = color;
+    this.threshold = threshold / 100;
 
     // Bind event handlers to ensure they have the correct context
     this.mousedown = this.mousedown.bind(this);
@@ -15,10 +16,26 @@ export default class Fill {
 
   isValid(screen, x, y, w, h, source) {
     if (x < 0 || x >= w || y < 0 || y >= h) return false;
-    if (screen[(y * this.c.w + x) * 4 + 0] !== source[0]) return false;
-    if (screen[(y * this.c.w + x) * 4 + 1] !== source[1]) return false;
-    if (screen[(y * this.c.w + x) * 4 + 2] !== source[2]) return false;
-    if (screen[(y * this.c.w + x) * 4 + 3] !== source[3]) return false;
+    if (
+      Math.abs(screen[(y * this.c.w + x) * 4 + 0] - source[0]) / 255 >=
+      this.threshold
+    )
+      return false;
+    if (
+      Math.abs(screen[(y * this.c.w + x) * 4 + 1] - source[1]) / 255 >=
+      this.threshold
+    )
+      return false;
+    if (
+      Math.abs(screen[(y * this.c.w + x) * 4 + 2] - source[2]) / 255 >=
+      this.threshold
+    )
+      return false;
+    if (
+      Math.abs(screen[(y * this.c.w + x) * 4 + 3] - source[3]) / 255 >=
+      this.threshold
+    )
+      return false;
     return true;
   }
 
@@ -90,6 +107,10 @@ export default class Fill {
 
   setFill(color) {
     this.color = color;
+  }
+
+  setThreshold(threshold) {
+    this.threshold = threshold / 100;
   }
 
   cleanup() {
