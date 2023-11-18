@@ -1,4 +1,4 @@
-import { hexToRGBA } from "./utils.js";
+import { hexToRGBA } from "../utils.js";
 
 export default class Fill {
   constructor(canvas, color, threshold) {
@@ -10,7 +10,9 @@ export default class Fill {
     this.mousedown = this.mousedown.bind(this);
 
     // Initialize the worker
-    this.fillWorker = new Worker("./js/fillWorker.js", { type: "module" });
+    this.fillWorker = new Worker("./js/tools/fillWorker.js", {
+      type: "module",
+    });
 
     this.fillWorker.addEventListener(
       "message",

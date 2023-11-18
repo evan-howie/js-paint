@@ -8,6 +8,7 @@
   </head>
   <body>
     <div id="tools">
+      <span class="tip">Toggle this menu by pressing spacebar</span>
       <div class="upload">
         <h1>Upload</h1>
         <input
@@ -24,7 +25,7 @@
       </div>
       <div class="color-picker">
         <h1>Colors</h1>
-        <input type="color" id="color-picker" />
+        <input type="color" value="#000000" id="color-picker" />
       </div>
       <div class="brush">
         <button id="brush">Brush</button>
@@ -44,9 +45,7 @@
         <button id="dimensions-submit-button">Apply</button>
       </div>
     </div>
-    <div id="js-paint-canvas-container">
-      <canvas id="js-paint-canvas"></canvas>
-    </div>
+    <canvas id="js-paint-canvas"></canvas>
     <script src="js/main.js" type="module"></script>
   </body>
 </html>
