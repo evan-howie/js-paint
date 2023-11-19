@@ -9,20 +9,28 @@ export default class Canvas {
 
     // canvas settings
     this.canvas = document.getElementById(id);
+    this.scaleX = 1;
+    this.scaleY = 1;
 
     // graphics context
     this.ctx = this.canvas.getContext("2d", { willReadFrequently: true });
 
-    this.resize();
-    // window.addEventListener("resize", this.resize.bind(this));
-  }
-
-  resize() {
     this.canvas.width = this.canvas.parentElement.offsetWidth;
     this.canvas.height = this.canvas.parentElement.offsetHeight;
     this.w = this.canvas.width;
     this.h = this.canvas.height;
     this.clear();
+
+    this.setSize(
+      this.canvas.parentElement.offsetWidth,
+      this.canvas.parentElement.offsetHeight
+    );
+    window.addEventListener("resize", this.resize.bind(this));
+  }
+
+  resize() {
+    this.scaleX = this.w / this.canvas.clientWidth;
+    this.scaleY = this.h / this.canvas.clientHeight;
   }
 
   setSize(width, height) {
@@ -32,6 +40,8 @@ export default class Canvas {
     this.w = width;
     this.h = height;
     this.ctx.putImageData(image, 0, 0);
+    this.resize();
+    this.pushState();
   }
 
   pushState() {

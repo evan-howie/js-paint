@@ -5,3 +5,7 @@ export function hexToRGBA(color) {
   console.log(r, g, b);
   return [r, g, b, 255];
 }
+
+export function getScaledMousePos(x, y, scaleX, scaleY) {
+  return { x: x * scaleX, y: y * scaleY };
+}

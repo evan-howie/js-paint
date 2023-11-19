@@ -1,3 +1,5 @@
+import { getScaledMousePos } from "../utils.js";
+
 export default class Brush {
   // tool settings
   active = false;
@@ -41,11 +43,38 @@ export default class Brush {
   mousedown(e) {
     if (e.button !== 0) return;
     this.active = true;
-    this.brush(e.offsetX, e.offsetY, e.movementX, e.movementY);
+    const { x, y } = getScaledMousePos(
+      e.offsetX,
+      e.offsetY,
+      this.c.scaleX,
+      this.c.scaleY
+    );
+    const { dx, dy } = getScaledMousePos(
+      e.movementX,
+      e.movementY,
+      this.c.scaleX,
+      this.c.scaleY
+    );
+    this.brush(x, y, dx, dy);
   }
 
   mousemove(e) {
-    if (this.active) this.brush(e.offsetX, e.offsetY, e.movementX, e.movementY);
+    if (!this.active) return;
+
+    const { x, y } = getScaledMousePos(
+      e.offsetX,
+      e.offsetY,
+      this.c.scaleX,
+      this.c.scaleY
+    );
+    const { x: dx, y: dy } = getScaledMousePos(
+      e.movementX,
+      e.movementY,
+      this.c.scaleX,
+      this.c.scaleY
+    );
+    console.log(e.movementX, e.movementY, this.c.scaleX, this.c.scaleY);
+    this.brush(x, y, dx, dy);
   }
 
   mouseup(e) {
