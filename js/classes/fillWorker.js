@@ -1,4 +1,4 @@
-import Queue from "../queue.js";
+import Queue from "./queue.js";
 
 function isValid(screen, x, y, w, h, source, threshold) {
   if (x < 0 || x >= w || y < 0 || y >= h) return false;

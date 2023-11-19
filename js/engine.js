@@ -1,7 +1,7 @@
-import Canvas from "./canvas.js";
-import KeyHandler from "./keyHandler.js";
-import Brush from "./tools/brush.js";
-import Fill from "./tools/fill.js";
+import Canvas from "./classes/canvas.js";
+import KeyHandler from "./classes/keyHandler.js";
+import Brush from "./classes/brush.js";
+import Fill from "./classes/fill.js";
 
 const c = new Canvas("js-paint-canvas");
 let tool = new Brush(c);

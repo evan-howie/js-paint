@@ -10,7 +10,7 @@ export default class Fill {
     this.mousedown = this.mousedown.bind(this);
 
     // Initialize the worker
-    this.fillWorker = new Worker("./js/tools/fillWorker.js", {
+    this.fillWorker = new Worker("./js/classes/fillWorker.js", {
       type: "module",
     });
 
