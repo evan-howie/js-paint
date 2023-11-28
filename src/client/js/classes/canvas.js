@@ -77,4 +77,20 @@ export default class Canvas {
     this.ctx.drawImage(img, x, y);
     this.pushState();
   }
+
+  async toBlob() {
+    return new Promise((resolve, reject) => {
+      this.canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            resolve(blob);
+          } else {
+            reject(new Error("Canvas to Blob conversion failed"));
+          }
+        },
+        "image/png",
+        1.0
+      );
+    });
+  }
 }

@@ -20,6 +20,7 @@ const heightInput = document.getElementById("height");
 const dimensionSubmitButton = document.getElementById(
   "dimensions-submit-button"
 );
+const codeSubmit = document.getElementById("code-submit");
 
 function initColorPicker() {
   colorPicker.onchange = (e) => {
@@ -93,6 +94,28 @@ function initDimensions() {
   };
 }
 
+function initCodeSubmit() {
+  codeSubmit.onclick = onCodeSubmit;
+}
+
+async function onCodeSubmit() {
+  try {
+    const blob = await c.toBlob();
+    const formData = new FormData();
+    formData.append("codeImage", blob, "canvas_image.png");
+
+    const response = await fetch("/execute/node", {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error("Error sending canvas image:", error);
+  }
+}
+
 export default function init() {
   const initialColor = initColorPicker();
   const initialBrushStroke = initBrushStroke();
@@ -101,6 +124,7 @@ export default function init() {
   initClearCanvas();
   initToolButtons();
   initDimensions();
+  initCodeSubmit();
 
   tool.setFill(initialColor);
   tool.setStroke(initialBrushStroke);

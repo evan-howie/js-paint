@@ -1,0 +1,25 @@
+{
+  "name": "js-paint",
+  "version": "1.0.0",
+  "description": "First project to learn graphics programming",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch --env-file=.env src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evan-howie/js-paint.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evan-howie/js-paint/issues"
+  },
+  "homepage": "https://github.com/evan-howie/js-paint#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1"
+  }
+}
