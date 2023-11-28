@@ -110,7 +110,7 @@ async function onCodeSubmit() {
     });
 
     const result = await response.json();
-    console.log(result);
+    console.log(result.stdout);
   } catch (error) {
     console.error("Error sending canvas image:", error);
   }

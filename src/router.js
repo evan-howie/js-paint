@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const { exec } = require("child_process");
-const { writeFile } = require("fs/promises");
+const { writeFile, unlink } = require("fs/promises");
 
 const upload = multer({ dest: "uploads/" });
 
@@ -30,13 +30,14 @@ router.post("/execute/node", upload.single("codeImage"), (req, res) => {
     const nodeCmd = `node ${tempFile}`;
     await writeFile(tempFile, stdout);
 
-    exec(nodeCmd, (error, stdout, stderr) => {
+    exec(nodeCmd, async (error, stdout, stderr) => {
       if (error) {
         console.error(`Error: ${error.message}`);
         res.status(500).send(error.message);
       } else {
         res.status(200).json({ stdout });
       }
+      await unlink(tempFile);
     });
   });
 });
