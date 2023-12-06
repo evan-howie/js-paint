@@ -73,7 +73,6 @@ export default class Brush {
       this.c.scaleX,
       this.c.scaleY
     );
-    console.log(e.movementX, e.movementY, this.c.scaleX, this.c.scaleY);
     this.brush(x, y, dx, dy);
   }
 
